@@ -41,8 +41,9 @@ public class LoanStatementRequestDto {
     @Email
     String email;
 
+    @NotNull
     @ValidAge
-    LocalDate birthdayDate;
+    LocalDate birthdate;
 
     @NotNull
     @Size(min = 4, max = 4)

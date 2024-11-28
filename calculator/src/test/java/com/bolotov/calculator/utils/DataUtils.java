@@ -1,7 +1,13 @@
 package com.bolotov.calculator.utils;
 
+import com.bolotov.calculator.dto.EmploymentDto;
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
+import com.bolotov.calculator.dto.ScoringDataDto;
+import com.bolotov.calculator.enums.EmploymentPosition;
+import com.bolotov.calculator.enums.EmploymentStatus;
+import com.bolotov.calculator.enums.Gender;
+import com.bolotov.calculator.enums.MaritalStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -81,5 +87,34 @@ public class DataUtils {
                         .monthlyPayment(new BigDecimal("1700"))
                         .build()
         );
+    }
+
+    public static ScoringDataDto getScoringDataDtoJohnDoe() {
+        return ScoringDataDto.builder()
+                .amount(new BigDecimal("20000"))
+                .term(12)
+                .firstName("John")
+                .lastName("Doe")
+                .middleName("AAA")
+                .gender(Gender.MALE)
+                .birthdate(LocalDate.of(1990, 1, 1))
+                .passportSeries("1234")
+                .passportNumber("123456")
+                .passportIssueDate(LocalDate.of(2021, 1, 1))
+                .passportIssueBranch("Example branch")
+                .maritalStatus(MaritalStatus.MARRIED)
+                .dependentAmount(2)
+                .employment(EmploymentDto.builder()
+                        .employmentStatus(EmploymentStatus.EMPLOYED)
+                        .position(EmploymentPosition.MIDDLE_MANAGER)
+                        .employerINN("12345646742354135")
+                        .salary(BigDecimal.valueOf(5000))
+                        .workExperienceTotal(48)
+                        .workExperienceCurrent(20)
+                        .build())
+                .accountNumber("6456452")
+                .isInsuranceEnabled(true)
+                .isSalaryClient(true)
+                .build();
     }
 }

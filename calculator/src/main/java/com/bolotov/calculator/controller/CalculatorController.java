@@ -2,7 +2,7 @@ package com.bolotov.calculator.controller;
 
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
-import com.bolotov.calculator.service.OfferService;
+import com.bolotov.calculator.service.interfaces.OfferService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

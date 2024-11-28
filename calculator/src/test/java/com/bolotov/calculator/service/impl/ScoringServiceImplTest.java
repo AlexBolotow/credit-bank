@@ -1,6 +1,5 @@
-package com.bolotov.calculator.service;
+package com.bolotov.calculator.service.impl;
 
-import com.bolotov.calculator.dto.EmploymentDto;
 import com.bolotov.calculator.dto.ScoringDataDto;
 import com.bolotov.calculator.exception.ScoringException;
 import com.bolotov.calculator.utils.DataUtils;

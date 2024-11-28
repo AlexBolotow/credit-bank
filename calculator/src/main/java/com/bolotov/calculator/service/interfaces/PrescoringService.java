@@ -1,4 +1,4 @@
-package com.bolotov.calculator.service;
+package com.bolotov.calculator.service.interfaces;
 
 import java.math.BigDecimal;
 

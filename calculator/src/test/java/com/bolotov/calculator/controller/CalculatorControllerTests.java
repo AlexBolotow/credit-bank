@@ -2,10 +2,9 @@ package com.bolotov.calculator.controller;
 
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
-import com.bolotov.calculator.service.OfferService;
+import com.bolotov.calculator.service.interfaces.OfferService;
 import com.bolotov.calculator.utils.DataUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

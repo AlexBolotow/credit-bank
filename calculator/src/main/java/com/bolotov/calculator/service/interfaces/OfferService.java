@@ -1,4 +1,4 @@
-package com.bolotov.calculator.service;
+package com.bolotov.calculator.service.interfaces;
 
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;

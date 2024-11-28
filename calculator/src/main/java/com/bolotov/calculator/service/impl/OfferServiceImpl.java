@@ -1,7 +1,9 @@
-package com.bolotov.calculator.service;
+package com.bolotov.calculator.service.impl;
 
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
+import com.bolotov.calculator.service.interfaces.OfferService;
+import com.bolotov.calculator.service.interfaces.PrescoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

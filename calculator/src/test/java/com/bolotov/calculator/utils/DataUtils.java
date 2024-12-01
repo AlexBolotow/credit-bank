@@ -1,9 +1,6 @@
 package com.bolotov.calculator.utils;
 
-import com.bolotov.calculator.dto.EmploymentDto;
-import com.bolotov.calculator.dto.LoanOfferDto;
-import com.bolotov.calculator.dto.LoanStatementRequestDto;
-import com.bolotov.calculator.dto.ScoringDataDto;
+import com.bolotov.calculator.dto.*;
 import com.bolotov.calculator.enums.EmploymentPosition;
 import com.bolotov.calculator.enums.EmploymentStatus;
 import com.bolotov.calculator.enums.Gender;
@@ -115,6 +112,26 @@ public class DataUtils {
                 .accountNumber("6456452")
                 .isInsuranceEnabled(true)
                 .isSalaryClient(true)
+                .build();
+    }
+
+    public static CreditDto getCreditDto() {
+        return CreditDto.builder()
+                .amount(BigDecimal.valueOf(20000.0))
+                .term(1)
+                .monthlyPayment(BigDecimal.valueOf(1000.0))
+                .rate(BigDecimal.valueOf(0.2))
+                .psk(BigDecimal.valueOf(0.12))
+                .isInsuranceEnabled(true)
+                .isSalaryClient(true)
+                .paymentSchedule(List.of(PaymentScheduleElementDto.builder()
+                                .number(1)
+                                .date(LocalDate.now())
+                                .totalPayment(BigDecimal.valueOf(1500))
+                                .interestPayment(BigDecimal.valueOf(500))
+                                .debtPayment(BigDecimal.valueOf(1000))
+                                .remainingDebt(BigDecimal.valueOf(18500))
+                        .build()))
                 .build();
     }
 }

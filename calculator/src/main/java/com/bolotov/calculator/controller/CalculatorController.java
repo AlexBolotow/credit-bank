@@ -2,6 +2,8 @@ package com.bolotov.calculator.controller;
 
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
+import com.bolotov.calculator.dto.ScoringDataDto;
+import com.bolotov.calculator.service.interfaces.CreditService;
 import com.bolotov.calculator.service.interfaces.OfferService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ public class CalculatorController {
 
     private final OfferService offerService;
 
+    private final CreditService creditService;
+
     @PostMapping("/offers")
     public ResponseEntity<?> getOffers(@Valid @RequestBody LoanStatementRequestDto requestDto) {
         List<LoanOfferDto> sortedLoanOffers = offerService.generateOffers(requestDto).stream()
@@ -27,5 +31,10 @@ public class CalculatorController {
                 .toList();
 
         return ResponseEntity.ok(sortedLoanOffers);
+    }
+
+    @PostMapping("/calc")
+    public ResponseEntity<?> getCredit(@Valid @RequestBody ScoringDataDto scoringDataDto) {
+        return ResponseEntity.ok(creditService.createCredit(scoringDataDto));
     }
 }

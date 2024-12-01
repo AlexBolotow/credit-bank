@@ -1,7 +1,12 @@
 package com.bolotov.calculator.controller;
 
+import com.bolotov.calculator.dto.CreditDto;
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
+import com.bolotov.calculator.dto.ScoringDataDto;
+import com.bolotov.calculator.enums.EmploymentStatus;
+import com.bolotov.calculator.exception.ScoringException;
+import com.bolotov.calculator.service.interfaces.CreditService;
 import com.bolotov.calculator.service.interfaces.OfferService;
 import com.bolotov.calculator.utils.DataUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +39,9 @@ class CalculatorControllerTests {
 
     @MockBean
     private OfferService offerService;
+
+    @MockBean
+    private CreditService creditService;
 
     @Test
     @DisplayName("Test get offers functionality")
@@ -86,5 +94,55 @@ class CalculatorControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is(400)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.notNullValue()));
+    }
+
+    @Test
+    @DisplayName("Test get credit functionality")
+    void givenScoringDataDto_whenGetCredit_thenSuccessResponse() throws Exception {
+        //given
+        ScoringDataDto scoringDataDto = DataUtils.getScoringDataDtoJohnDoe();
+        CreditDto creditDto = DataUtils.getCreditDto();
+
+        BDDMockito.when(creditService.createCredit(scoringDataDto))
+                .thenReturn(creditDto);
+
+        //when
+        ResultActions result = mockMvc.perform(post("http://localhost:8080/calculator/calc")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(scoringDataDto)));
+
+        //then
+        result
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.amount", Matchers.is(creditDto.getAmount().doubleValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rate", Matchers.is(creditDto.getRate().doubleValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.monthlyPayment", Matchers.is(creditDto.getMonthlyPayment().doubleValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.psk", Matchers.is(creditDto.getPsk().doubleValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isInsuranceEnabled", Matchers.is(creditDto.getIsInsuranceEnabled())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSalaryClient", Matchers.is(creditDto.getIsSalaryClient())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.paymentSchedule", Matchers.hasSize(creditDto.getPaymentSchedule().size())));
+    }
+
+    @Test
+    @DisplayName("Test get credit by incorrect data functionality")
+    void givenIncorrectScoringDataDto_whenGetCredit_thenErrorResponse() throws Exception {
+        //given
+        ScoringDataDto scoringDataDto = DataUtils.getScoringDataDtoJohnDoe();
+        scoringDataDto.getEmployment().setEmploymentStatus(EmploymentStatus.UNEMPLOYED);
+
+        BDDMockito.given(creditService.createCredit(any(ScoringDataDto.class)))
+                .willThrow(new ScoringException("Unemployed client"));
+
+        //when
+        ResultActions result = mockMvc.perform(post("http://localhost:8080/calculator/calc")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(scoringDataDto)));
+
+        //then
+        result
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is(422)));
     }
 }

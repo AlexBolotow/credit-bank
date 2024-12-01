@@ -4,8 +4,8 @@ import com.bolotov.calculator.dto.EmploymentDto;
 import com.bolotov.calculator.dto.ScoringDataDto;
 import com.bolotov.calculator.enums.Gender;
 import com.bolotov.calculator.exception.ScoringException;
-import com.bolotov.calculator.service.interfaces.PrescoringService;
-import com.bolotov.calculator.service.interfaces.ScoringService;
+import com.bolotov.calculator.service.PrescoringService;
+import com.bolotov.calculator.service.ScoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

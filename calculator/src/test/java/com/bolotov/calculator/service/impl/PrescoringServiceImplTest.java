@@ -1,6 +1,5 @@
 package com.bolotov.calculator.service.impl;
 
-import com.bolotov.calculator.service.interfaces.PrescoringService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PrescoringServiceImplTest {
 
     @Autowired
-    PrescoringService prescoringService;
+    PrescoringServiceImpl prescoringService;
 
     @Test
     @DisplayName("Test calculate monthly payment functionality")

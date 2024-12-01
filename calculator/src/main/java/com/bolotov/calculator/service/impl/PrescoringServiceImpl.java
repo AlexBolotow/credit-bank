@@ -1,6 +1,6 @@
 package com.bolotov.calculator.service.impl;
 
-import com.bolotov.calculator.service.interfaces.PrescoringService;
+import com.bolotov.calculator.service.PrescoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

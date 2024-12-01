@@ -3,9 +3,9 @@ package com.bolotov.calculator.service.impl;
 import com.bolotov.calculator.dto.CreditDto;
 import com.bolotov.calculator.dto.PaymentScheduleElementDto;
 import com.bolotov.calculator.dto.ScoringDataDto;
-import com.bolotov.calculator.service.interfaces.CreditService;
-import com.bolotov.calculator.service.interfaces.PaymentScheduleService;
-import com.bolotov.calculator.service.interfaces.ScoringService;
+import com.bolotov.calculator.service.CreditService;
+import com.bolotov.calculator.service.PaymentScheduleService;
+import com.bolotov.calculator.service.ScoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

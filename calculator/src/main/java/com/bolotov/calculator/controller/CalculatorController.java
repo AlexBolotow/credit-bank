@@ -1,10 +1,11 @@
 package com.bolotov.calculator.controller;
 
+import com.bolotov.calculator.dto.CreditDto;
 import com.bolotov.calculator.dto.LoanOfferDto;
 import com.bolotov.calculator.dto.LoanStatementRequestDto;
 import com.bolotov.calculator.dto.ScoringDataDto;
-import com.bolotov.calculator.service.interfaces.CreditService;
-import com.bolotov.calculator.service.interfaces.OfferService;
+import com.bolotov.calculator.service.CreditService;
+import com.bolotov.calculator.service.OfferService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class CalculatorController {
     private final CreditService creditService;
 
     @PostMapping("/offers")
-    public ResponseEntity<?> getOffers(@Valid @RequestBody LoanStatementRequestDto requestDto) {
+    public ResponseEntity<List<LoanOfferDto>> getOffers(@Valid @RequestBody LoanStatementRequestDto requestDto) {
         List<LoanOfferDto> sortedLoanOffers = offerService.generateOffers(requestDto).stream()
                 .sorted((o1, o2) -> o2.getRate().compareTo(o1.getRate()))
                 .toList();
@@ -34,7 +35,7 @@ public class CalculatorController {
     }
 
     @PostMapping("/calc")
-    public ResponseEntity<?> getCredit(@Valid @RequestBody ScoringDataDto scoringDataDto) {
+    public ResponseEntity<CreditDto> getCredit(@Valid @RequestBody ScoringDataDto scoringDataDto) {
         return ResponseEntity.ok(creditService.createCredit(scoringDataDto));
     }
 }

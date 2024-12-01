@@ -1,4 +1,4 @@
-package com.bolotov.calculator.service.interfaces;
+package com.bolotov.calculator.service;
 
 import com.bolotov.calculator.dto.PaymentScheduleElementDto;
 import com.bolotov.calculator.dto.ScoringDataDto;

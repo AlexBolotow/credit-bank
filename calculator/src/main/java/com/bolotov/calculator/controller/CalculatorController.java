@@ -6,6 +6,8 @@ import com.bolotov.calculator.dto.LoanStatementRequestDto;
 import com.bolotov.calculator.dto.ScoringDataDto;
 import com.bolotov.calculator.service.CreditService;
 import com.bolotov.calculator.service.OfferService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ public class CalculatorController {
 
     private final CreditService creditService;
 
+    @Operation(summary = "Get offers", description = "Get 4 prescoring variations of credit offers")
+    @ApiResponse(responseCode = "400", description = "Validation error")
     @PostMapping("/offers")
     public ResponseEntity<List<LoanOfferDto>> getOffers(@Valid @RequestBody LoanStatementRequestDto requestDto) {
         List<LoanOfferDto> sortedLoanOffers = offerService.generateOffers(requestDto).stream()
@@ -34,6 +38,9 @@ public class CalculatorController {
         return ResponseEntity.ok(sortedLoanOffers);
     }
 
+    @Operation(summary = "Get credit", description = "Get credit offer with all parameters")
+    @ApiResponse(responseCode = "400", description = "Validation error")
+    @ApiResponse(responseCode = "422", description = "Business logic error")
     @PostMapping("/calc")
     public ResponseEntity<CreditDto> getCredit(@Valid @RequestBody ScoringDataDto scoringDataDto) {
         return ResponseEntity.ok(creditService.createCredit(scoringDataDto));
